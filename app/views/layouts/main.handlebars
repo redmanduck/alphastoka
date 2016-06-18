@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>{{title }}</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/semantic/dist/semantic.css">
+    <script src="/components/jquery/dist/jquery.min.js"></script>
+    <script src="/semantic/dist/semantic.min.js"></script>
+
+    {{#if ENV_DEVELOPMENT}}
+    <script src="http://localhost:35729/livereload.js"></script>
+    {{/if}}
+  </head>
+  <body>
+    <div class="ui container">
+      <div class="ui text menu">
+        <img class="item" src="/img/logo.png" width="180px">
+        <div class="ui right dropdown item">
+          Settings
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            <div class="item">Applications</div>
+            <div class="item">International Students</div>
+            <div class="item">Scholarships</div>
+          </div>
+        </div>
+      </div>
+      <div class="ui flowing basic admission popup">
+        <div class="ui three column relaxed divided grid">
+          <div class="column">
+            <h4 class="ui header">Social Sciences</h4>
+            <div class="ui link list">
+              <a class="item">Food Studies</a>
+              <a class="item">Journalism</a>
+              <a class="item">Non Profit Management</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui clearing basic segment">
+        <div class="ui floated text menu">
+          <div class="header item">Filter By</div>
+          <a class="active item">
+            All
+          </a>
+          <a class="item">
+            Male
+          </a>
+          <a class="item">
+            Female
+          </a>
+          <a class="item">
+            Non-human
+          </a>
+        </div>
+        <button class="ui right floated button">
+          Export All
+        </button>
+        <button class="ui right floated button">
+          Advanced Search
+        </button>
+        <button class="ui right floated  primary button">
+          Reconfigure
+        </button>
+      </div>
+      {{{body}}}
+    </div>
+  </body>
+</html>
