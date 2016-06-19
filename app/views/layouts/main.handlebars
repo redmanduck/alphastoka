@@ -3,15 +3,31 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <title>{{title }}</title>
+    <title>{{title }} - AlphaStoka</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/semantic/dist/semantic.css">
     <script src="/components/jquery/dist/jquery.min.js"></script>
     <script src="/semantic/dist/semantic.min.js"></script>
+    <script src="https://use.fontawesome.com/e891519772.js"></script>
 
     {{#if ENV_DEVELOPMENT}}
     <script src="http://localhost:35729/livereload.js"></script>
     {{/if}}
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
   </head>
   <body>
     <div class="ui container">
@@ -39,32 +55,9 @@
           </div>
         </div>
       </div>
-      <div class="ui clearing basic segment">
-        <div class="ui floated text menu">
-          <div class="header item">Filter By</div>
-          <a class="active item">
-            All
-          </a>
-          <a class="item">
-            Male
-          </a>
-          <a class="item">
-            Female
-          </a>
-          <a class="item">
-            Non-human
-          </a>
-        </div>
-        <button class="ui right floated button">
-          Export All
-        </button>
-        <button class="ui right floated button">
-          Advanced Search
-        </button>
-        <button class="ui right floated  primary button">
-          Reconfigure
-        </button>
-      </div>
+
+
+
       {{{body}}}
     </div>
   </body>

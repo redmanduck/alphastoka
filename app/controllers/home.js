@@ -1,23 +1,17 @@
 var express = require('express'),
   router = express.Router(),
-  Article = require('../models/article');
+  Profile = require('../models/profile');
 
 module.exports = function (app) {
   app.use('/', router);
 };
 
 router.get('/', function (req, res, next) {
-  var articles = [new Article(), new Article()];
-    res.render('index', {
-      title: 'Home',
-      articles: articles
+    var profiles = Profile.find({}).sort({ follower_count : -1 }).exec(function(err, profiles){
+      res.render('index', {
+        title: 'Cards',
+        profiles: profiles
+      });
     });
-});
 
-router.get('/databoard', function (req, res, next) {
-  var articles = [new Article(), new Article()];
-    res.render('index', {
-      title: 'Dashboard',
-      articles: articles
-    });
 });

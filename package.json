@@ -12,7 +12,9 @@
     "express": "^4.13.3",
     "express-handlebars": "^3.0.0",
     "glob": "^6.0.4",
+    "handlebars": "^4.0.5",
     "method-override": "^2.3.0",
+    "mongoose": "^4.5.1",
     "morgan": "^1.6.1",
     "semantic-ui": "^2.1.8",
     "serve-favicon": "^2.3.0"
