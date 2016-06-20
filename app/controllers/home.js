@@ -7,11 +7,9 @@ module.exports = function (app) {
 };
 
 router.get('/', function (req, res, next) {
-    var profiles = Profile.find({}).sort({ follower_count : -1 }).exec(function(err, profiles){
-      res.render('index', {
-        title: 'Cards',
-        profiles: profiles
+      res.render('landing', {
+        layout: 'landing',
+        title: 'Welcome'
       });
-    });
 
 });
