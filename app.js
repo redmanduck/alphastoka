@@ -5,7 +5,7 @@ var express = require('express'),
 
 var app = express();
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/alphastoka');
+mongoose.connect('mongodb://washington:poly@ds025772.mlab.com:25772/alphastoka');
 
 require('./config/express')(app, config);
 
