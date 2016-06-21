@@ -22,24 +22,28 @@ module.exports = function(app, config) {
         inc: function(v){
           return Number(v) + 1;
         },
-        alphaLanguage: function(dd){
+        alphaLanguage: function(){
           //TODO: move to server
           var rkorean = /[가-힣]+/g
           var rthai = /[ก-๙]+/g
           var rjapanese = new RegExp('[一-龯]+', 'g')
 
-          var korean = ((dd + "").match(rkorean) !== null)
-          var thai =  ((dd + "").match(rthai) !== null)
-          var japanese =  ((dd + "").match(rjapanese) !== null)
+          var korean = (this + "").match(rkorean);
+          var thai =  (this + "").match(rthai);
+          var japanese =  (this + "").match(rjapanese);
 
-          if(thai) return "Thailand";
-          if(korean){
-            // console.log( (dd + "").match(rkorean) )
-            return "Korea";
-          }
-          if(japanese) return "Japan";
+          var Ranks = [
+            {name: 'Thailand' , rank: (thai !== null ? thai.join("").length : 0)},
+            {name: 'Korean' ,rank : (korean !== null ? korean.join("").length : 0)},
+            {name: 'Japanese', rank: (japanese !== null ? japanese.join("").length: 0)}
+          ]
 
-          return "Unclear";
+          Ranks.sort(function(a,b) {
+              return b.rank - a.rank;
+          });
+          // console.log(Ranks);
+
+          return Ranks[0].rank != 0 ? Ranks[0].name : 'Unknown';
 
         },
         alphaFollowerCount: function (dd) {
