@@ -23,7 +23,6 @@ module.exports = function(app, config) {
           return Number(v) + 1;
         },
         alphaLanguage: function(dd){
-          console.log(this)
           //TODO: move to server
           var rkorean = /[가-힣]+/g
           var rthai = /[ก-๙]+/g
@@ -35,7 +34,7 @@ module.exports = function(app, config) {
 
           if(thai) return "Thailand";
           if(korean){
-            console.log( (dd + "").match(rkorean) )
+            // console.log( (dd + "").match(rkorean) )
             return "Korea";
           }
           if(japanese) return "Japan";
@@ -43,28 +42,28 @@ module.exports = function(app, config) {
           return "Unclear";
 
         },
-        alphaFollowerCount: function () {
+        alphaFollowerCount: function (dd) {
           var re = /([0-9]+[km]?)\sfollowers/i;
-          var cc = (this + "").match(re)
+          var cc = (dd + "").match(re)
           if(!cc || cc.length < 2){
             return "";
           }
           return cc[1];
         },
-        alphaEmail: function(){
+        alphaEmail: function(dd){
           var re = /[0-9a-zA-Z]+\@([0-9a-zA-Z]+)\.[a-zA-Z0-9]{2,6}(\.[a-zA-Z0-9]{2,6})?/g;
-          var cc = (this + "").match(re);
+          var cc = (dd + "").match(re);
           if(cc == null) return "N/A";
           return new Handlebars.SafeString(cc.join("<br/> ").replace(/\s/g, '').replace(/-/g, ''))
         },
-        alphaPhoneNumber: function () {
+        alphaPhoneNumber: function (dd) {
           //+66 97 140 6640
           //097-140-6640
           //0971406640
           //097 140 6640
 
           var re = /(0|(\+66))\s?[0-9]{2}(\s|-)?[0-9]{3}(\s|-)?[0-9]{4}/g;
-          var cc = (this + "").match(re);
+          var cc = (dd + "").match(re);
           if(cc == null) return "N/A";
           return new Handlebars.SafeString(cc.join("<br/> ").replace(/\s/g, '').replace(/-/g, ''))
         }
