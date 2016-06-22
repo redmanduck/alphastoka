@@ -4,14 +4,8 @@
           <a class="active item">
             All
           </a>
-          <a class="item">
-            Male
-          </a>
-          <a class="item">
-            Female
-          </a>
-          <a class="item">
-            Non-human
+          <a class="item" href="/deck/?locale=Thailand">
+            Thailand
           </a>
         </div>
 
@@ -49,9 +43,9 @@
           <table class="ui very basic collapsing celled table">
              <tr><td>Activity</td><td>- <i>LpH</i></td></tr>
              <tr><td>Category</td><td>-</td></tr>
-             <tr><td>Region</td><td>{{ alphaLanguage _doc.header }}</td></tr>
-             <tr><td>Phone</td><td>{{ alphaPhoneNumber _doc.header }}</td></tr>
-             <tr><td>Email</td><td>{{ alphaEmail _doc.header }}</td></tr>
+             <tr><td>Region</td><td>{{ _doc.locale }}</td></tr>
+             <tr><td>Phone</td><td>{{ brize _doc.phone_number }}</td></tr>
+             <tr><td>Email</td><td>{{ brize _doc.email }}</td></tr>
           </table>
         </div>
       </div>

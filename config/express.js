@@ -22,29 +22,8 @@ module.exports = function(app, config) {
         inc: function(v){
           return Number(v) + 1;
         },
-        alphaLanguage: function(){
-          //TODO: move to server
-          var rkorean = /[가-힣]+/g
-          var rthai = /[ก-๙]+/g
-          var rjapanese = new RegExp('[一-龯]+', 'g')
-
-          var korean = (this + "").match(rkorean);
-          var thai =  (this + "").match(rthai);
-          var japanese =  (this + "").match(rjapanese);
-
-          var Ranks = [
-            {name: 'Thailand' , rank: (thai !== null ? thai.join("").length : 0)},
-            {name: 'Korean' ,rank : (korean !== null ? korean.join("").length : 0)},
-            {name: 'Japanese', rank: (japanese !== null ? japanese.join("").length: 0)}
-          ]
-
-          Ranks.sort(function(a,b) {
-              return b.rank - a.rank;
-          });
-          // console.log(Ranks);
-
-          return Ranks[0].rank != 0 ? Ranks[0].name : 'Unknown';
-
+        brize: function(v){
+          return new Handlebars.SafeString(v.replace(/,/g, '<br/>'));
         },
         alphaFollowerCount: function (dd) {
           var re = /([0-9]+[km]?)\sfollowers/i;
@@ -53,23 +32,6 @@ module.exports = function(app, config) {
             return "";
           }
           return cc[1];
-        },
-        alphaEmail: function(dd){
-          var re = /[0-9a-zA-Z]+\@([0-9a-zA-Z]+)\.[a-zA-Z0-9]{2,6}(\.[a-zA-Z0-9]{2,6})?/g;
-          var cc = (dd + "").match(re);
-          if(cc == null) return "N/A";
-          return new Handlebars.SafeString(cc.join("<br/> ").replace(/\s/g, '').replace(/-/g, ''))
-        },
-        alphaPhoneNumber: function (dd) {
-          //+66 97 140 6640
-          //097-140-6640
-          //0971406640
-          //097 140 6640
-
-          var re = /(0|(\+66))\s?[0-9]{2}(\s|-)?[0-9]{3}(\s|-)?[0-9]{4}/g;
-          var cc = (dd + "").match(re);
-          if(cc == null) return "N/A";
-          return new Handlebars.SafeString(cc.join("<br/> ").replace(/\s/g, '').replace(/-/g, ''))
         }
     },
     partialsDir: [config.root + '/app/views/partials/']
