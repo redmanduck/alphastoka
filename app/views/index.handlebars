@@ -4,10 +4,10 @@
           <a class="active item">
             All
           </a>
-          <a class="item" href="/deck/?filter={'locale': 'Thailand'}">
+          <a class="item" href='/deck/?filter={"locale": "Thailand"}'>
             Thailand
           </a>
-          <a class="item" href="/deck/?locale={'locale': 'Thailand', 'email': {'$ne' : 'N/A'}}">
+          <a class="item" href='/deck/?filter={"locale": "Thailand", "email": {"$ne" : "N/A"}}'>
             Thai &amp; Email
           </a>
         </div>
@@ -53,7 +53,7 @@
         </div>
       </div>
        <div class="extra content">
-          # {{ inc @index}}
+          # {{ inc @index}} / {{ number ../profile_count }}
         </div>
     </div>
   {{/each}}
