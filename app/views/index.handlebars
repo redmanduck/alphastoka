@@ -4,8 +4,11 @@
           <a class="active item">
             All
           </a>
-          <a class="item" href="/deck/?locale=Thailand">
+          <a class="item" href="/deck/?filter={'locale': 'Thailand'}">
             Thailand
+          </a>
+          <a class="item" href="/deck/?locale={'locale': 'Thailand', 'email': {'$ne' : 'N/A'}}">
+            Thai &amp; Email
           </a>
         </div>
 
@@ -28,7 +31,7 @@
         <div class="ui dimmer">
             <div class="content">
               <div class="center">
-                <a class="ui inverted button" onclick="detail()">In-Depth</a>
+                <a class="ui inverted button">In-Depth</a>
               </div>
             </div>
         </div>
@@ -37,7 +40,7 @@
       <div class="content">
         <a class="header" target="blank" href="https://instagram.com/{{ _doc.user.username }}">@{{ _doc.user.username }}</a>
         <div class="meta">
-          <span class="date">{{ alphaFollowerCount _doc.header }} followers</span>
+          <span class="date">{{ number _doc.follower_count }} followers</span>
         </div>
         <div class="description">
           <table class="ui very basic collapsing celled table">
@@ -57,33 +60,8 @@
 
 </div>
 
-<div class="ui modal">
-  <i class="close icon"></i>
-  <div class="header">
-    Modal Title
-  </div>
-  <div class="image content">
-    <div class="image">
-      An image can appear on left or an icon
-    </div>
-    <div class="description">
-      A description can appear on the right
-    </div>
-  </div>
-  <div class="actions">
-    <div class="ui button">Cancel</div>
-    <div class="ui button">OK</div>
-  </div>
-</div>
-
 
 <script>
-  function detail(){
-    $('.long.modal')
-    .modal('setting', 'transition', 'fade up')
-    .modal('setting', 'duration', 200)
-    .modal('show')
-  }
 
   $('.special.cards .image').dimmer({
     on: 'hover'

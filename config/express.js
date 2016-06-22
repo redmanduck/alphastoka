@@ -22,6 +22,9 @@ module.exports = function(app, config) {
         inc: function(v){
           return Number(v) + 1;
         },
+        number: function(x){
+          return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        },
         brize: function(v){
           return new Handlebars.SafeString(v.replace(/,/g, '<br/>'));
         },
