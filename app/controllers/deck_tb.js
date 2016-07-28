@@ -1,9 +1,9 @@
 var express = require('express'),
   router = express.Router(),
-  Profile = require('../models/profile');
+  YoutubeProfile = require('../models/youtube');
 
 module.exports = function (app) {
-  app.use('/deck', router);
+  app.use('/deck/youtube', router);
 };
 
 router.get('/', function (req, res, next) {
@@ -16,7 +16,7 @@ router.get('/', function (req, res, next) {
 
     var pages = [];
 
-    Profile.count(_filter, function(err, c) {
+    YoutubeProfile.count(_filter, function(err, c) {
         //pagination logic
         var MAXBTN = 12;
         var TRAIL = 3;
@@ -42,8 +42,9 @@ router.get('/', function (req, res, next) {
           }
         }
 
-        var profiles = Profile.find(_filter).skip(skip).limit(limit).sort({ follower_count : -1 }).exec(function(err, profiles){
-          res.render('index', {
+        var profiles = YoutubeProfile.find(_filter).skip(skip).limit(limit).sort({ subscriber_count : -1 })
+        .exec(function(err, profiles){
+          res.render('youtube', {
             title: 'Deck',
             profiles: profiles,
             profile_count: c,

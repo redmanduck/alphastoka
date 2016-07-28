@@ -9,6 +9,7 @@
     <script src="/components/jquery/dist/jquery.min.js"></script>
     <script src="/semantic/dist/semantic.min.js"></script>
     <script src="https://use.fontawesome.com/e891519772.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
 
     {{#if ENV_DEVELOPMENT}}
     <script src="http://localhost:35729/livereload.js"></script>
@@ -32,33 +33,17 @@
   <body>
     <div class="ui container">
       <div class="ui text menu">
-        <img class="item" src="/img/logo.png" width="180px">
-        <div class="ui right dropdown item">
-          Settings
-          <i class="dropdown icon"></i>
-          <div class="menu">
-            <div class="item">Applications</div>
-            <div class="item">International Students</div>
-            <div class="item">Scholarships</div>
-          </div>
-        </div>
+        <img class="item" src="/img/logo.png" width="150px" style="margin-left:30px; padding-top:30px"/>
       </div>
-      <div class="ui flowing basic admission popup">
-        <div class="ui three column relaxed divided grid">
-          <div class="column">
-            <h4 class="ui header">Social Sciences</h4>
-            <div class="ui link list">
-              <a class="item">Food Studies</a>
-              <a class="item">Journalism</a>
-              <a class="item">Non Profit Management</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
 
       {{{body}}}
+
+      <div class="ui container">
+      <p>
+        <small>Made with <i class="fa fa-heart"></i> by <strong>Stoka</strong></small>
+        <br/>
+      </p>
+      </div>
     </div>
   </body>
 </html>

@@ -19,8 +19,19 @@ module.exports = function(app, config) {
     layoutsDir: config.root + '/app/views/layouts/',
     defaultLayout: 'main',
     helpers: {
+        ytUpSize: function(s){
+          return s.replace("s100", "s500")
+        },
         inc: function(v){
           return Number(v) + 1;
+        },
+        if_eq: function(a,b,opts){
+          console.log(a,b);
+          if (Number(a) == Number(b)) {
+              return opts.fn(this);
+          } else {
+              return opts.inverse(this);
+          }
         },
         number: function(x){
           return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

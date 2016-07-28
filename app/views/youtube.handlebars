@@ -4,10 +4,10 @@
           <div class="ui dropdown">
             <input type="hidden" name="gender">
             <i class="dropdown icon"></i>&nbsp;
-            <div class="default text"><i class="fa fa-instagram"></i>&nbsp;IG <strong>Global</strong></div>
+            <div class="default text"><i class="fa fa-youtube"></i>&nbsp;YouTube <strong>Global</strong></div>
             <div class="menu">
-              <div class="item" data-value="ytg"><i class="fa fa-youtube"></i>&nbsp;YouTube <strong>Global</strong></div>
               <div class="item" data-value="ytt"><i class="fa fa-youtube"></i>&nbsp;YouTube <strong>Thailand</strong></div>
+              <div class="item" data-value="igg"><i class="fa fa-instagram"></i>&nbsp;IG <strong>Global</strong></div>
               <div class="item" data-value="igt"><i class="fa fa-instagram"></i>&nbsp;IG <strong>Thailand</strong></div>
             </div>
           </div>
@@ -38,20 +38,19 @@
               </div>
             </div>
         </div>
-        <img src="{{ _doc.images.0.src }}">
+        <img src="{{ ytUpSize _doc.logo }}">
       </div>
       <div class="content">
-        <a class="header" target="blank" href="https://instagram.com/{{ _doc.user.username }}">@{{ _doc.user.username }}</a>
+        <a class="header" target="blank" href="https://instagram.com/{{ _doc.user.username }}">{{ _doc.title }}</a>
         <div class="meta">
-          <span class="date">{{ number _doc.follower_count }} followers</span>
+          <span class="date">{{ number _doc.subscriber_count }} subscribers</span>
         </div>
         <div class="description">
           <table class="ui very basic collapsing celled table">
-             <tr><td>Activity</td><td>- <i>LpH</i></td></tr>
-             <tr><td>Category</td><td>-</td></tr>
+             <tr><td>Category</td><td>{{ _doc.category }}</td></tr>
              <tr><td>Region</td><td>{{ _doc.locale }}</td></tr>
-             <tr><td>Phone</td><td>{{ brize _doc.phone_number }}</td></tr>
-             <tr><td>Email</td><td>{{ brize _doc.email }}</td></tr>
+             <tr><td>Email</td><td>{{ _doc.email }}</td></tr>
+             <tr><td>Views</td><td>{{ number _doc.view_count }}</td></tr>
           </table>
         </div>
       </div>
