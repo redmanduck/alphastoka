@@ -1,35 +1,55 @@
- <div class="ui clearing basic segment">
+<div ng-controller="YouTubeController">
+<div class="ui clearing basic segment">
         <div class="ui floated text menu">
 
-          <div class="ui dropdown">
-            <input type="hidden" name="gender">
-            <i class="dropdown icon"></i>&nbsp;
-            <div class="default text"><i class="fa fa-youtube"></i>&nbsp;YouTube <strong>Global</strong></div>
+          <div class="ui multiple dropdown">
+            <input type="hidden" name="filters">
+            <i class="filter icon"></i>
+            <span class="text">Filter Profiles</span>
             <div class="menu">
-              <div class="item" data-value="ytt"><i class="fa fa-youtube"></i>&nbsp;YouTube <strong>Thailand</strong></div>
-              <div class="item" data-value="igg"><i class="fa fa-instagram"></i>&nbsp;IG <strong>Global</strong></div>
-              <div class="item" data-value="igt"><i class="fa fa-instagram"></i>&nbsp;IG <strong>Thailand</strong></div>
+              <div class="ui icon search input">
+                <i class="search icon"></i>
+                <input type="text" placeholder="Search filters...">
+              </div>
+              <div class="divider"></div>
+              <div class="header">
+                <i class="tags icon"></i>
+                Preset Filters
+              </div>
+              <div class="scrolling menu">
+                <div class="item" data-value="thai">
+                  <div class="ui black empty circular label"></div>
+                  Thai
+                </div>
+                <div class="item" data-value="ig">
+                  <div class="ui blue empty circular label"></div>
+                  Instagram
+                </div>
+                <div class="item" data-value="yt">
+                  <div class="ui red empty circular label"></div>
+                  YouTube
+                </div>
+                <div class="item" data-value="gt2000sub">
+                  <div class="ui red empty circular label"></div>
+                  > 2000 Subscribers
+                </div>
+              </div>
             </div>
           </div>
-
 
         </div>
 
         <button class="ui right floated button">
-          Send Message
-        </button>
-        <button class="ui right floated button">
           Export All
         </button>
         <button class="ui right floated  primary button">
-          <i class="fa fa-filter"></i> Filter &amp; Sort
+          <i class="fa fa-cog"></i> Sort
         </button>
       </div>
 
 <div class="ui five special cards">
 <!-- repeat -->
-{{#each profiles}}
-    <div class="ui card" style="overflow:hidden">
+    <div class="ui card" style="overflow:hidden" ng-repeat="card in resp.profiles">
       <div class="blurring dimmable image">
         <div class="ui dimmer">
             <div class="content">
@@ -38,76 +58,121 @@
               </div>
             </div>
         </div>
-        <img src="{{ ytUpSize _doc.logo }}">
+        <img ng-src="[[card.logo_url]]">
       </div>
       <div class="content">
-        <a class="header" target="blank" href="https://instagram.com/{{ _doc.user.username }}">{{ _doc.title }}</a>
+        <a class="header" target="blank" href="[[card.url]]">[[card.title]]</a>
         <div class="meta">
-          <span class="date">{{ number _doc.subscriber_count }} subscribers</span>
+          <span class="date">[[ card.stats.subscriber_count | number ]] subscribers</span>
         </div>
         <div class="description">
           <table class="ui very basic collapsing celled table">
-             <tr><td>Region</td><td>{{ _doc.country }}</td></tr>
-             <tr><td>Email</td><td>{{ _doc.email }}</td></tr>
-             <tr><td>Views</td><td>{{ number _doc.view_count }}</td></tr>
+             <tr><td>Region</td><td>[[ card.country ]]</td></tr>
+             <tr><td>Email</td><td>[[ card.email ]]</td></tr>
+             <tr><td>Views</td><td>[[  card.stats.view_count | number ]]</td></tr>
           </table>
         </div>
       </div>
        <div class="extra content">
-          # {{ inc @index}} / {{ number ../profile_count }}
+          <!-- # {{ inc @index}} / {{ ../profile_count }} -->
+          [[ $index + 1]] / [[ resp.profile_count | number ]]
         </div>
     </div>
-{{/each}}
 </div>
 
 <p class="ui container">
 <div class="ui pagination menu">
-  <a class="item">
+  <a class="item" ng-click="getPage(currentPage-1)">
      <i class="fa fa-caret-left"></i>
   </a>
-  {{#each pages}}
-  <a onclick="getPage({{ this }})" class="item {{#if_eq ../currentPage this}}active{{/if_eq}}">{{ this }}</a>
-  {{/each}}
-  <a class="item">
+  <a ng-repeat="p in resp.pages" ng-click="getPage(p)" class="item" ng-class="{'active': currentPage == p }">[[p]]</a>
+  <a class="item" ng-click="getPage(currentPage+1)">
     <i class="fa fa-caret-right"></i>
   </a>
 </div>
 
 </p>
 
+</div>
+<br/>
 <script>
 
-function dictToQuery(D){
-  var str = [];
-  for(key in D){
-    str.push(key + "=" + D[key]);
-  }
-  return str.join("&");
-}
-
-function getPage(n){
-  if(window.location.search.length > 0){
-    var ex  = window.location.search.substr(1);
-    var exList = ex.split('&');
-    var dict = {};
-    exList.forEach(function(exItem){
-      var spp = exItem.split('=');
-      dict[spp[0]] = spp[1];
-    });
-
-    dict['page'] = n;
-
-    window.location.href = window.location.href.split('?')[0] + '?' + dictToQuery(dict);
-  }else{
-    window.location.href = window.location.href + '?page=' + n;
-  }
-
-}
   $('.special.cards .image').dimmer({
     on: 'hover'
   });
 
-  $('.ui.dropdown')
-  .dropdown()
+  var STOKA_FILTER = {
+    'thai': {"$or": [{"country": "Thailand"}, {"language.0": "th"}]},
+    'ig': {"medium": "instagram"},
+    'yt': {"medium" : "youtube"},
+    'gt2000sub': {"stats.subscriber_count" : {"$gt" : 2000}}
+  };
+
+
+  myApp.controller('YouTubeController', ['$scope','$http', function($scope, $http) {
+    $scope.appliedFilters = {};
+    $('.ui.dropdown').dropdown({
+      onRemove: function(removedValue, removedText, $removedChoice){
+        delete $scope.appliedFilters[removedValue];
+        $scope.$apply();
+        $scope.reload($scope.currentPage, $scope.appliedFilters);
+      },
+      onChange: function(text,value){
+        var m = STOKA_FILTER[value];
+        if(!m){
+          return text;
+        }
+
+        if(value in $scope.appliedFilters){
+          return text;
+        }
+
+        $scope.appliedFilters[value] = m;
+
+        $scope.$apply();
+        $scope.reload($scope.currentPage, $scope.appliedFilters);
+        return text;
+      }
+     });
+
+    function filterize(filterList){
+      if(Object.keys(filterList).length == 0) return false;
+      var K = []
+      Object.keys(filterList).forEach(function(y){
+        K.push(filterList[y]);
+      })
+      var x = {
+        "$and" : K
+      };
+      return x;
+    }
+
+
+    $scope.reload = function(page, appliedFilters){
+      var P = {
+          page: page
+      };
+      var ap = filterize(appliedFilters);
+      if(ap){
+        P.filter = ap;
+      }
+      $http.get('/deck/youtube/api', {
+        params: P
+      }).then(function(data){
+        $scope.resp = data.data;
+      });
+    }
+
+    $scope.currentPage = 1;
+
+    $scope.getPage =function(p){
+      $scope.currentPage = Number(p);
+      $scope.reload($scope.currentPage, $scope.appliedFilters);
+    }
+
+    $scope.reload(1, $scope.appliedFilters);
+  }]);
+
+
 ;
 </script>

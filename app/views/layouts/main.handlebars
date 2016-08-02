@@ -28,9 +28,18 @@
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
+    <script>
+      var myApp = angular.module('myApp',[]);
 
+      myApp.config(function($interpolateProvider) {
+        $interpolateProvider.startSymbol('[[');
+        $interpolateProvider.endSymbol(']]');
+      });
+
+    </script>
   </head>
-  <body>
+  <body ng-app="myApp">
+
     <div class="ui container">
       <div class="ui text menu">
         <img class="item" src="/img/logo.png" width="150px" style="margin-left:30px; padding-top:30px"/>
