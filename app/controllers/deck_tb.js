@@ -44,7 +44,7 @@ router.get('/api', function (req, res, next) {
 
         var profiles = Profilesv5.find(_filter).skip(skip).limit(limit).sort({ "stats.subscriber_count" : -1 })
         .exec(function(err, profiles){
-          res.send('youtube', {
+          res.send({
             title: 'Deck',
             profiles: profiles,
             profile_count: c,
