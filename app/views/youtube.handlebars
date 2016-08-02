@@ -58,7 +58,7 @@
               </div>
             </div>
         </div>
-        <img ng-src="[[card.logo_url]]">
+        <img ng-src="[[getHiRes(card.logo_url)]]">
       </div>
       <div class="content">
         <a class="header" target="blank" href="[[card.url]]">[[card.title]]</a>
@@ -68,6 +68,7 @@
         <div class="description">
           <table class="ui very basic collapsing celled table">
              <tr><td>Region</td><td>[[ card.country ]]</td></tr>
+             <tr><td>Language</td><td>[[ card.language[0] ]]</td></tr>
              <tr><td>Email</td><td>[[ card.email ]]</td></tr>
              <tr><td>Views</td><td>[[  card.stats.view_count | number ]]</td></tr>
           </table>
@@ -114,6 +115,7 @@
     $('.ui.dropdown').dropdown({
       onRemove: function(removedValue, removedText, $removedChoice){
         delete $scope.appliedFilters[removedValue];
+        $scope.currentPage = 1;
         $scope.$apply();
         $scope.reload($scope.currentPage, $scope.appliedFilters);
       },
@@ -129,6 +131,7 @@
 
         $scope.appliedFilters[value] = m;
 
+        $scope.currentPage = 1;
         $scope.$apply();
         $scope.reload($scope.currentPage, $scope.appliedFilters);
         return text;
@@ -147,6 +150,9 @@
       return x;
     }
 
+    $scope.getHiRes = function(url){
+      return url.replace('/s100', '/l100')
+    }
 
     $scope.reload = function(page, appliedFilters){
       var P = {
@@ -160,6 +166,7 @@
         params: P
       }).then(function(data){
         $scope.resp = data.data;
+
       });
     }
 

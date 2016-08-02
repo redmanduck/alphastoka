@@ -10,6 +10,8 @@
     <script src="/semantic/dist/semantic.min.js"></script>
     <script src="https://use.fontawesome.com/e891519772.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css' type='text/css' media='all' />
+    <script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js'></script>
 
     {{#if ENV_DEVELOPMENT}}
     <script src="http://localhost:35729/livereload.js"></script>
@@ -29,11 +31,12 @@
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
     <script>
-      var myApp = angular.module('myApp',[]);
+      var myApp = angular.module('myApp',['angular-loading-bar']);
 
-      myApp.config(function($interpolateProvider) {
+      myApp.config(function($interpolateProvider, cfpLoadingBarProvider) {
         $interpolateProvider.startSymbol('[[');
         $interpolateProvider.endSymbol(']]');
+        cfpLoadingBarProvider.includeSpinner = false;
       });
 
     </script>
